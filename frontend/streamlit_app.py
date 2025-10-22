@@ -10,7 +10,7 @@ st.set_page_config(page_title="CHI-311 Copilot", layout="wide")
 st.title("CHI-311 Copilot")
 st.caption("Predictive insights for a smarter, more equitable city.")
 
-# TODO: R3 to fetch this from the /api/refresh_meta endpoint
+
 st.sidebar.info("Data last refreshed: 2025-08-25")
 
 # --- Main App ---
@@ -26,7 +26,7 @@ with tab1:
     sr_number = st.text_input("Enter your Service Request Number (e.g., SR24-12345678)", "")
 
     if st.button("Track Request") and sr_number:
-        # TODO: R3 to call the backend API (e.g., /api/request/{sr} and /api/predict/{sr})
+        
         st.info(f"Fetching details for **{sr_number}**...")
         
         # --- Placeholder Data ---
@@ -53,12 +53,12 @@ with tab2:
     with col1:
         area_type = st.selectbox("View by:", ["Community Area", "Ward"], index=1)
     with col2:
-        # TODO: R3 to populate this list from an API call
+        
         area_name = st.selectbox(f"Select a {area_type}:", ["1", "2", "3", "...", "50"], index=0)
 
     st.write(f"Showing median time-to-close for **Pothole** requests in **Ward {area_name}**.")
 
-    # TODO: R3 to call /api/equity and display real data
+    
     # --- Placeholder Data ---
     st.metric(label=f"Ward {area_name} Median", value="12 days", delta="-2 days vs. city median", delta_color="inverse")
     st.metric(label="Citywide Median", value="14 days")
@@ -80,7 +80,7 @@ with tab3:
     st.header("City-Wide Operations View")
     st.subheader("Service Request Hotspots (Last 30 Days)")
 
-    # TODO: R3 to call /api/hotspots and use st.map()
+    
     # --- Placeholder Map Data ---
     map_data = pd.DataFrame(
         np.random.randn(5, 2) / [20, 20] + [41.87, -87.62],
@@ -89,7 +89,7 @@ with tab3:
     st.caption("Showing active hotspots for Pothole requests.")
 
     st.subheader("Backlog & Forecast")
-    # TODO: R3 to add KPIs and forecast charts
+    
     col1, col2, col3 = st.columns(3)
     col1.metric("Active Pothole Backlog", "12,405", "+5% vs 7d avg")
     col2.metric("Avg. Resolution Time", "14.2 Days", "-0.5d vs 7d avg", delta_color="inverse")
