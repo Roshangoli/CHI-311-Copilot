@@ -15,8 +15,7 @@ class RefreshMeta(BaseModel):
     model_version: str
     feature_version: str
 
-# TODO: R4 to replace this with a dynamic mechanism that reads from a file or DB
-# This file could be updated by the nightly data refresh script.
+
 _refresh_meta_cache = {
     "data_last_updated": datetime.datetime.now() - datetime.timedelta(days=1),
     "model_version": "v0.0.1-alpha",
@@ -36,11 +35,3 @@ async def get_refresh_meta():
     """
     return _refresh_meta_cache
 
-# TODO: R4 to add routers for other endpoints
-# from .routers import request, equity, hotspots
-# app.include_router(request.router)
-# app.include_router(equity.router)
-# app.include_router(hotspots.router)
-
-# To run this app:
-# uvicorn backend.app:app --reload
