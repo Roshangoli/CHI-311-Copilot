@@ -2,7 +2,7 @@
 # backend/agents/resident.py
 from .tools import AgentTools, RequestStatus, Prediction, RefreshMeta
 
-# TODO: R2 to refine this system prompt. This is critical for agent behavior.
+
 RESIDENT_SYSTEM_PROMPT = """
 You are the CHI-311 Copilot Resident Agent. Your goal is to provide clear, accurate, and helpful information to Chicago residents about their 311 service requests. 
 
@@ -25,8 +25,7 @@ class ResidentAgent:
             tool_client: A class that implements the AgentTools protocol.
         """
         self.tools = tool_client
-        # TODO: R2 to integrate with an LLM client (e.g., OpenAI, Gemini)
-        # self.llm_client = ...
+        
 
     def get_request_summary(self, sr_number: str) -> str:
         """
@@ -46,11 +45,10 @@ class ResidentAgent:
             prediction: Prediction = self.tools.predict_eta(sr_number)
             meta: RefreshMeta = self.tools.refresh_meta()
         except Exception as e:
-            # TODO: R2 to implement more specific error handling
+           
             return f"I'''m sorry, I was unable to retrieve information for service request {sr_number}. There might be an issue with the system or the ID may be incorrect."
 
-        # 2. TODO: R2 to format this information into a prompt for the LLM
-        # For now, we will just use a simple f-string template.
+        
         response_template = f"""
         Here is the information for service request #{sr_number}:
 
@@ -66,7 +64,6 @@ class ResidentAgent:
         *Data last refreshed on {meta['data_last_updated']}.*
         """
 
-        # 3. TODO: R2 to send to LLM and get a polished response.
-        # response = self.llm_client.generate(prompt=..., system_prompt=RESIDENT_SYSTEM_PROMPT)
+        
 
         return response_template.strip()
