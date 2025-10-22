@@ -3,7 +3,7 @@
 from .tools import AgentTools, Prediction
 
 # Define acceptable thresholds
-MIN_CONFIDENCE_THRESHOLD = 0.60 # Don'''t show predictions with less than 60% confidence
+MIN_CONFIDENCE_THRESHOLD = 0.60 
 
 class ValidatorAgent:
     """
@@ -36,14 +36,12 @@ class ValidatorAgent:
         """
         print(f"Validator: Validating prediction for {sr_number}")
 
-        # Rule 1: Check confidence score
+       
         if initial_prediction['confidence'] < MIN_CONFIDENCE_THRESHOLD:
             reason = f"Confidence ({initial_prediction['confidence']:.0%}) is below threshold ({MIN_CONFIDENCE_THRESHOLD:.0%})."
             print(f"Validation FAILED: {reason}")
             return False, reason
 
-        # Rule 2: Re-query the tool to check for major discrepancies (e.g., race condition)
-        # TODO: R2 to add retry logic and more robust comparison.
         try:
             validation_prediction = self.tools.predict_eta(sr_number)
         except Exception as e:
@@ -60,18 +58,3 @@ class ValidatorAgent:
         print(f"Validation PASSED for {sr_number}")
         return True, ""
 
-# Example Usage (how the Resident Agent might use the Validator)
-#
-# resident_agent = ResidentAgent(tool_client)
-# validator_agent = ValidatorAgent(tool_client)
-#
-# prediction = resident_agent.tools.predict_eta("SR12345")
-# is_valid, reason = validator_agent.validate_prediction("SR12345", prediction)
-#
-# if is_valid:
-#     # Proceed with generating the user-facing response
-#     ...
-# else:
-#     # Return a safe, alternative response
-#     # e.g., "I can see the status, but am unable to provide a reliable ETA at this time."
-#     ...
