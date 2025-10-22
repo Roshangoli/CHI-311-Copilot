@@ -3,8 +3,7 @@
 from typing import TypedDict, List, Optional, Protocol
 from datetime import date
 
-# --- Data Schemas for Tool Outputs ---
-# TODO: R2 to refine these schemas as the backend APIs are built.
+
 
 class RequestStatus(TypedDict):
     status: str
@@ -41,9 +40,7 @@ class RefreshMeta(TypedDict):
     model_version: str
     feature_version: str
 
-# --- Tool Interface Definition ---
-# Using a Protocol to define the set of tools the agents can use.
-# This allows for easy mocking and testing.
+
 
 class AgentTools(Protocol):
     """Defines the interface for all tools available to the CHI-311 agents."""
@@ -68,14 +65,4 @@ class AgentTools(Protocol):
         """Gets metadata about data freshness and model versions."""
         ...
 
-# TODO: R2 to implement a concrete class that calls the FastAPI endpoints.
-# Example:
-# class ApiAgentTools(AgentTools):
-#     def __init__(self, base_url: str = "http://127.0.0.1:8000/api"):
-#         self.client = httpx.Client(base_url=base_url)
-#
-#     def get_request_status(self, sr_number: str) -> RequestStatus:
-#         response = self.client.get(f"/request/{sr_number}")
-#         response.raise_for_status()
-#         return response.json()
-#     ...
+
